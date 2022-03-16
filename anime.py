@@ -1,12 +1,14 @@
 from data_processing import PreProcessing
-from similarity import similarity
 import pandas as pd
+import pickle
 #Defining Variables
 
 anime = pd.read_csv('./data/AnimeData.csv')
 
 anime = PreProcessing(anime)
-cosine_sim = similarity(anime)
+file = open('cosinesim.p','rb')
+cosine_sim = pickle.load(file)
+file.close()
 # anime_user_likes = 'Naruto'
 
 def get_index_from_title(MainTitle):
