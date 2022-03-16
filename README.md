@@ -1,2 +1,2 @@
 # Anime-Recommender
-href = "https://animerecommendator.herokuapp.com/"
+https://animerecommendator.herokuapp.com/
