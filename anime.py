@@ -6,7 +6,7 @@ import pickle
 anime = pd.read_csv('./data/AnimeData.csv')
 
 anime = PreProcessing(anime)
-file = open('cosinesim.p','rb')
+file = open('./data/cosinesim.p','rb')
 cosine_sim = pickle.load(file)
 file.close()
 # anime_user_likes = 'Naruto'
