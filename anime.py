@@ -3,7 +3,7 @@ from similarity import similarity
 import pandas as pd
 #Defining Variables
 
-anime = pd.read_csv('./data/AnimeData.csv')
+anime = pd.read_csv('./data/AnimeData.csv', chunksize=2000)
 
 anime = PreProcessing(anime)
 cosine_sim = similarity(anime)
@@ -24,6 +24,7 @@ def similar_anime(anime_user_likes):
     similaranime = list(enumerate(cosine_sim[anime_index]))
     sorted_similar_anime = sorted(similaranime, key=lambda x:x[1], reverse=True)
     i=0
+    print(cosine_sim)
     data = []
     for anime in sorted_similar_anime:
         data.append(get_data_from_index(anime[0]))
