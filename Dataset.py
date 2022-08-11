@@ -1,45 +1,61 @@
-#Fututre improvements- Improve the redundancy  
+import os 
 import csv
-import time
 import requests
-import pandas as pd
+import mysql.connector
 from bs4 import BeautifulSoup
+
 n = [x+1 for x in range(50)]
-anime = []
-for x in range(508):
+data = []
+for x in range(528):
     index = '/'.join(map(str,n))
     url = 'https://cdn.animenewsnetwork.com/encyclopedia/nodelay.api.xml?title=%s}'%(index)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'xml')
-    anime.append(soup.find_all('anime'))
-    n = [x+50 for x in n]
+    data.append(soup.find_all(['anime','manga']))
+    n = [x+50 for x in n]    
 
-with open('data/AnimeData.csv', 'w') as f:
+DATABASE = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="larousse6139",
+  database = "OTAKU_DATABASE"
+)
+
+OTAKUcursor = DATABASE.cursor()
+OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Anime(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))")
+OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Manga(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))")
+with open('./data/OTAKU_Data.csv', 'w') as f:
     writer = csv.writer(f)
     Headers = ['MainTitle', 'Type','Genre', 'Weighted_Score', 'Themes', 'Summary']
     writer.writerow(Headers)
-    for i in range(len(anime)):
-        for j in range(len(anime[i])):
+    for i in range(len(data)):
+        for j in range(len(data[i])):
                 #Titles
                 try:
-                    Title = anime[i][j].find_all(type = 'Main title')
-                    Title = Title[0].text
+                    Title = data[i][j].find_all(type = 'Main title')
+                    if Title == []:
+                        Title = 'No title found'
+                    else:
+                        Title = Title[0].text
                 except IndexError:
                     pass
                 #Types
-                Type = anime[i][j].get('precision')
+                Type = data[i][j].get('precision')
                 #Genres
-                Genres = []
-                Genre = anime[i][j].find_all(type = 'Genres')
+                Genres = ''
+                Genre = data[i][j].find_all(type = 'Genres')
                 for text in range(len(Genre)):
-                    Genres.append(Genre[text].text)
+                    if Genre == '[]':
+                        Genres = 'No Genre found'
+                    else:
+                        Genres += str(Genre[text].text) + ", "
                 #Weighted score
                 try:
-                    Weighted_score = anime[i][j].find('ratings').get('weighted_score')
+                    Weighted_score = data[i][j].find('ratings').get('weighted_score')
                 except AttributeError:
                     Weighted_score = 0
                 #Theme
-                Theme = anime[i][j].find_all(type = 'Themes')
+                Theme = data[i][j].find_all(type = 'Themes')
                 if not Theme:
                     Theme = 'No Theme Found'
                 try:
@@ -49,11 +65,19 @@ with open('data/AnimeData.csv', 'w') as f:
                     Theme = 'No Theme Found'
                 #Summary
                 try:
-                    Summary = anime[i][j].find(type = 'Plot Summary').text
+                    Summary = data[i][j].find(type = 'Plot Summary').text
                     if not Summary:
                         Summary = 'No summary found'
                 except AttributeError:
                     Summary = 'No summary found'
-                AnimeList = [Title, Type, Genres, Weighted_score, Theme, Summary]
-                writer.writerow(AnimeList)
-            
+                input = [(Title, Type, str(Genres), Weighted_score, Themes, Summary)]
+                if Type == 'Manga':
+                    insert = "INSERT INTO Manga(`Title`, `Type`, `Genre`, `Weighted_score`, `Themes`, `Summary`) VALUES (%s, %s, %s, %s, %s, %s)"
+                else:
+                    insert = "INSERT INTO Anime(`Title`, `Type`, `Genre`, `Weighted_score`, `Themes`, `Summary`) VALUES (%s, %s, %s, %s, %s, %s)"
+                OTAKUcursor.executemany(insert, input)
+                writer.writerow([Title, Type, Genres, Weighted_score, Theme, Summary])
+DATABASE.commit()
+DATABASE.close()
+os.system('cd data')          
+os.system('mysqldump -u root -p%s OTAKU_DATABASE > OTAKU_DATABASE.sql'%'larousse6139')          

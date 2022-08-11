@@ -1,9 +1,13 @@
 from crypt import methods
+from typing_extensions import Self
 from urllib import request
 from flask import Flask, render_template, request
-from anime import similar_anime
+from processing import Recommendation
 app = Flask(__name__)
 
+reccomendations = Recommendation()
+reccomendations.data_processing()
+reccomendations.recommendation_list()
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -11,10 +15,10 @@ def index():
 @app.route('/', methods=['POST'])
 def getvalue():
     name = request.form['Name']
-    data = similar_anime(name)
-    anime_one = data[1:]
+    data = reccomendations.recommended_anime(name)
+    anime_one = data[0]
     print(len(data))
-    return render_template('results.html',name=name, anime_one=anime_one)
+    return render_template('results.html',name=name, data=data)
 
 if __name__ == "__main__":
     app.run()
