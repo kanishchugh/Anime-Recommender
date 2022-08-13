@@ -18,7 +18,7 @@ class Recommendation:
         self.cos_sim_data = pd.DataFrame(cosine_similarity(self.X))
 
     def give_recommendations(self, index):
-        index_recomm = self.cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:6]
+        index_recomm = self.cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:8]
         anime_name =  self.data['MainTitle'].loc[index_recomm].values
         anime_summary = self.data['Summary'].loc[index_recomm].values
         anime_genre = self.data['Genre'].loc[index_recomm].values
@@ -32,6 +32,7 @@ class Recommendation:
             self.recomm_list.append(recomm_i)
         self.recomm_data = pd.DataFrame(self.recomm_list)
         self.recomm_data['Watched_Anime'] = self.data['MainTitle']
+        
     def  recommended_anime(self,name):
         names = self.recomm_data['Watched_Anime']
         closest_name = difflib.get_close_matches(name,names)
