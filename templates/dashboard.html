@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OTAKU INVESTIGATION</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href= "./static/css/video.css">
+  <link rel="stylesheet" href="./static/css/search.css">
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class = "mx-auto" style="width: 0px;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="./static/logo/Anime Recommender-logos_transparent.png" alt="" width="150" height="80" >
+        </a>
+      </div>
+    </div>
+    <div class = "mx-right">          
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+      <input type="image" name="visualization" src="../static/Otaku_investigation.png" alt="" width="128" height="80">
+      </a>
+    </div>
+  </nav>
+  <div class='tableauPlaceholder' id='viz1663277500025' style='position: relative'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book2_16632766792050&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Book2_16632766792050&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book2_16632766792050&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1663277500025');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='927px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+
+  <div>
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <video autoplay loop id="video-background" muted plays-inline>
+    <source src="./static/Anime.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <footer class="text-center text-white" style="background-color: #5a4ae3;">
+    <!-- Grid container -->
+    <div class="container pt-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Twitter -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://twitter.com/kanishchugh2001/"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="bi bi-twitter"></i
+        ></a>
+  
+        <!-- Google -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="mailto:kanishchugh2001@gmail.com?subject=&body="
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="bi bi-google"></i
+        ></a>
+  
+  
+        <!-- Linkedin -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://www.linkedin.com/kanishchugh/"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="bi bi-linkedin"></i
+        ></a>
+        <!-- Github -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://github.com/kanishchugh"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="bi bi-github"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      End-to-End project by 
+      <a class="text-dark" href="https://github.com/kanishchugh">kanish chugh</a>
+    </div>
+    <!-- Copyright -->
+  </footer>  
+</body>
+</html>
+
