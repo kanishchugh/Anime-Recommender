@@ -9,9 +9,9 @@ import joblib
 class Recommendation:
     def __init__(self, location ='./data/OTAKU_Data.csv'):
         self.data = pd.read_csv(location)
-        self.model = SentenceTransformer('distilbert-base-nli-mean-tokens')
         
     def data_processing(self):
+        self.model = SentenceTransformer('distilbert-base-nli-mean-tokens')
         self.X = np.array(self.data.Summary)
         self.data = self.data[['MainTitle','Genre','Summary']]
         text_data = self.X
