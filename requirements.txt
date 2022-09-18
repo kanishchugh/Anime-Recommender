@@ -6,4 +6,3 @@ requests
 scikit_learn
 gunicorn
 itsdangerous
-sentence-transformers
