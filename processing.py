@@ -3,6 +3,9 @@ from sentence_transformers import SentenceTransformer
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import difflib
+from joblib import Parallel, delayed
+import joblib
+
 class Recommendation:
     def __init__(self, location ='./data/OTAKU_Data.csv'):
         self.data = pd.read_csv(location)
@@ -32,9 +35,12 @@ class Recommendation:
             self.recomm_list.append(recomm_i)
         self.recomm_data = pd.DataFrame(self.recomm_list)
         self.recomm_data['Watched_Anime'] = self.data['MainTitle']
-        
+        joblib.dump(self.recomm_data,'Anime_Data.pkl')
+
     def  recommended_anime(self,name):
-        names = self.recomm_data['Watched_Anime']
+        data = joblib.load('Anime_Data.pkl')
+        names = data['Watched_Anime']
         closest_name = difflib.get_close_matches(name,names)
-        self.anime_data = self.recomm_data.loc[(self.recomm_data.Watched_Anime == closest_name[0])].values[0][0]
+        self.anime_data = data.loc[(data.Watched_Anime == closest_name[0])].values[0][0]
         return self.anime_data, closest_name
+        

@@ -2,27 +2,28 @@ from urllib import request
 from flask import Flask, render_template, request
 from processing import Recommendation
 
-
 reccomendations = Recommendation()
-reccomendations.data_processing()
-reccomendations.recommendation_list()
+import os.path
+if os.path.exists('Anime_Data.pkl'):
+    app = Flask(__name__)
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return render_template('index.html')
+    @app.route('/dashboard')
+    def dashboard():
+        return render_template('dashboard.html')
+    @app.route('/', methods=['POST'])
+    def getvalue():
+        name = request.form['Name']
+        data,name = reccomendations.recommended_anime(name)
+        anime_name = data['Anime']
+        anime_genre= data['Genre']
+        anime_summary = data['Summary']
+        return render_template('results.html',name=name[0], anime_name=anime_name,anime_genre=anime_genre,anime_summary=anime_summary)
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-@app.route('/', methods=['POST'])
-def getvalue():
-    name = request.form['Name']
-    data,name = reccomendations.recommended_anime(name)
-    anime_name = data['Anime']
-    anime_genre= data['Genre']
-    anime_summary = data['Summary']
-    return render_template('results.html',name=name[0], anime_name=anime_name,anime_genre=anime_genre,anime_summary=anime_summary)
-
-if __name__ == "__main__":
-    app.run()
+    if __name__ == "__main__":
+        app.run()
+else:
+    reccomendations.data_processing()
+    reccomendations.recommendation_list()
