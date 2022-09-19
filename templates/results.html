@@ -17,18 +17,18 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class = "mx-auto" style="width: 0px;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="./static/logo/Anime Recommender-logos_transparent.png" alt="" width="150" height="80" >
-        </a>
-      </div>
-    </div>
-    <div class = "mx-right">          
-      <a class="navbar-brand" href="{{ url_for('dashboard') }}">
-      <input type="image" name="visualization" src="../static/Otaku_investigation.png" alt="" width="128" height="80">
+      <a class="navbar-brand" href="/">
+        <img src="./static/logo/Anime Recommender-logos_transparent.png" alt="" width="150" height="80" >
       </a>
     </div>
-  </nav> 
-  
+  </div>
+  <div class = "mx-right">          
+    <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+    <input type="image" name="visualization" src="../static/Otaku_investigation.png" alt="" width="128" height="80">
+    </a>
+  </div>
+  </nav>
+
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <video autoplay loop id="video-background" muted plays-inline>
       <source src="./static/Anime.mp4" type="video/mp4">
