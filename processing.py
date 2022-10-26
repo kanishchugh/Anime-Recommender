@@ -7,20 +7,20 @@ from joblib import Parallel, delayed
 import joblib
 
 class Recommendation:
-    def __init__(self, location ='./data/OTAKU_Data.csv'):
+    def __init__(self, location ='./data/OTAKU_Data.csv'): #Loading the database
         self.data = pd.read_csv(location)
         
-    def data_processing(self):
-        self.model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    def data_processing(self): 
+        self.model = SentenceTransformer('distilbert-base-nli-mean-tokens') #Using sentence transformers 
         self.X = np.array(self.data.Summary)
-        self.data = self.data[['MainTitle','Genre','Summary']]
+        self.data = self.data[['MainTitle','Genre','Summary']] #Filtering out data
         text_data = self.X
         embeddings = self.model.encode(text_data)
         embed_data = embeddings
-        self.X = np.array(embed_data)
-        self.cos_sim_data = pd.DataFrame(cosine_similarity(self.X))
+        self.X = np.array(embed_data) 
+        self.cos_sim_data = pd.DataFrame(cosine_similarity(self.X)) #Calculating cosine similarity 
 
-    def give_recommendations(self, index):
+    def give_recommendations(self, index): #Giving reccommendations based on index
         index_recomm = self.cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:8]
         anime_name =  self.data['MainTitle'].loc[index_recomm].values
         anime_summary = self.data['Summary'].loc[index_recomm].values
@@ -37,7 +37,7 @@ class Recommendation:
         self.recomm_data['Watched_Anime'] = self.data['MainTitle']
         joblib.dump(self.recomm_data,'Anime_Data.pkl')
 
-    def  recommended_anime(self,name):
+    def recommended_anime(self,name): #Driver code that gives the specific recommendation
         data = joblib.load('Anime_Data.pkl')
         names = data['Watched_Anime']
         closest_name = difflib.get_close_matches(name,names)

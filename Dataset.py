@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 n = [x+1 for x in range(50)]
 data = []
-for x in range(528):
+for x in range(528): #Getting all the pages from the api
     index = '/'.join(map(str,n))
     url = 'https://cdn.animenewsnetwork.com/encyclopedia/nodelay.api.xml?title=%s}'%(index)
     response = requests.get(url)
@@ -14,18 +14,18 @@ for x in range(528):
     data.append(soup.find_all(['anime','manga']))
     n = [x+50 for x in n]    
 
-DATABASE = mysql.connector.connect(
+DATABASE = mysql.connector.connect( #Connecting to the MySQL database
   host="localhost",
   user="root",
-  password="larousse6139",
+  password=""#Enter your own password here
   database = "OTAKU_DATABASE"
 )
 
-OTAKUcursor = DATABASE.cursor()
-OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Anime(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))")
-OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Manga(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))")
-with open('./data/OTAKU_Data.csv', 'w') as f:
-    writer = csv.writer(f)
+OTAKUcursor = DATABASE.cursor() # Defining the cursor
+OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Anime(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))") #Creating Anime table
+OTAKUcursor.execute("CREATE TABLE IF NOT EXISTS Manga(Title VARCHAR(150), Type VARCHAR(100), Genre VARCHAR(700), Weighted_score FLOAT(3), Themes VARCHAR(150), Summary VARCHAR(3000))") #Creating Manga table
+with open('./data/OTAKU_Data.csv', 'w') as database:
+    writer = csv.writer(database)
     Headers = ['MainTitle', 'Type','Genre', 'Weighted_Score', 'Themes', 'Summary']
     writer.writerow(Headers)
     for i in range(len(data)):
@@ -71,13 +71,15 @@ with open('./data/OTAKU_Data.csv', 'w') as f:
                 except AttributeError:
                     Summary = 'No summary found'
                 input = [(Title, Type, str(Genres), Weighted_score, Themes, Summary)]
+                #Inserting data into tables
                 if Type == 'Manga':
                     insert = "INSERT INTO Manga(`Title`, `Type`, `Genre`, `Weighted_score`, `Themes`, `Summary`) VALUES (%s, %s, %s, %s, %s, %s)"
                 else:
                     insert = "INSERT INTO Anime(`Title`, `Type`, `Genre`, `Weighted_score`, `Themes`, `Summary`) VALUES (%s, %s, %s, %s, %s, %s)"
-                OTAKUcursor.executemany(insert, input)
+                #Commiting data into database
+                OTAKUcursor.executemany(insert, input) 
                 writer.writerow([Title, Type, Genres, Weighted_score, Theme, Summary])
-DATABASE.commit()
-DATABASE.close()
-os.system('cd data')          
-os.system('mysqldump -u root -p%s OTAKU_DATABASE > OTAKU_DATABASE.sql'%'larousse6139')          
+DATABASE.commit() #commiting to the database
+DATABASE.close() #closing the database
+os.system('cd data') #getting into the data directory
+os.system('mysqldump -u root -p%s OTAKU_DATABASE > OTAKU_DATABASE.sql'%'') #Enter password here  
