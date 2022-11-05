@@ -79,7 +79,7 @@ This section contains the list of the major frameworks/libraries used in this pa
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To use this application you can visit the link https://web-production-6205.up.railway.app/ and use the application directly from there. 
+To use this application you can visit the link https://anime-recommender-production.up.railway.app/ and use the application directly from there. 
 _Try Naruto, AKIRA._ You can also explore the data using the tableau dashboard created byt clicking on the _OTAKU INVESTIGATION_ button in the top-bar.
 To use the tableau dashboard. click on the type of media. Then select the genre of the media to get the filtered results in the grid. You may then hover over the tiles to get the information about the filtered media.
 
