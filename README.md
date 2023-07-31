@@ -12,7 +12,7 @@
     An End-to-End Anime reccomendation project!
     <br />
     <br />
-    <a href="https://web-production-6205.up.railway.app/">View Demo</a>
+    <a href="https://anime-ghze.onrender.com">View Demo</a>
     ·
     <a href="https://github.com/kanishchugh/Anime-Recommender/issues">Report Bug</a>
     ·
@@ -50,7 +50,7 @@
 
 [![Product Name Screen Shot](static/Screenshot%20.png)]()
 
-Anime Recommender is an end-to-end project that is deployed on railway using a simple scraping api from https://cdn.animenewsnetwork.com and created a dataset from it.
+Anime Recommender is an end-to-end project that is deployed on render using a simple scraping api from https://cdn.animenewsnetwork.com and created a dataset from it.
 
 The recommender system will use a cosine similarity metric after using a sentence transformer to tokenize the strings to determine how similar two anime are and then create a count vectorizer matrix of all the animes. and save it into a pickle file to be used again and again without having the need to calculate the data again and again. 
 
@@ -79,7 +79,7 @@ This section contains the list of the major frameworks/libraries used in this pa
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To use this application you can visit the link https://anime-recommender-production.up.railway.app/ and use the application directly from there. 
+To use this application you can visit the link https://anime-ghze.onrender.com and use the application directly from there. 
 _Try Naruto, AKIRA._ You can also explore the data using the tableau dashboard created byt clicking on the _OTAKU INVESTIGATION_ button in the top-bar.
 To use the tableau dashboard. click on the type of media. Then select the genre of the media to get the filtered results in the grid. You may then hover over the tiles to get the information about the filtered media.
 
