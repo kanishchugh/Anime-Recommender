@@ -115,7 +115,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Kanish Chugh - [@kanishchugh2001](https://twitter.com/kanishchugh) - kanishchugh2001@gmail.com
+Kanish Chugh - [@kanishchugh](https://twitter.com/kanishchugh) - kanishchugh2001@gmail.com
 
 Project Link: [https://github.com/kanishchugh/Anime-Recommender/](https://github.com/kanishchugh/Anime-Recommender)
 
